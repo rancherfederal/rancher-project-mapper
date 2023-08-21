@@ -6,7 +6,7 @@ use std::collections::HashMap;
 
 
 #[derive(Serialize, Deserialize, Default, Debug)]
-struct Project {
+pub struct Project {
     pub project_type: String,
     pub project_name: String,
 }
