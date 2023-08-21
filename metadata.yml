@@ -1,0 +1,17 @@
+rules:
+- apiGroups: [""]
+  apiVersions: ["v1"]
+  resources: ["pods", "namespaces"]
+  operations: ["CREATE", "UPDATE"]
+mutating: false
+contextAware: false
+executionMode: kubewarden-wapc
+annotations:
+  io.kubewarden.policy.title: kubewarden-istio-policy
+  io.kubewarden.policy.description: Short description
+  io.kubewarden.policy.author: atoy3731
+  io.kubewarden.policy.url: https://github.com/atoy3731/kubewarden-istio-policy
+  io.kubewarden.policy.source: https://github.com/atoy3731/kubewarden-istio-policy
+  io.kubewarden.policy.license: Apache-2.0
+  io.kubewarden.policy.usage: |
+    Placeholder

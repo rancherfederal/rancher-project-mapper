@@ -1,0 +1,25 @@
+{
+      "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
+      "kind": {"group":"","version":"v1","kind":"Namespace"},
+      "resource": {"group":"","version":"","resource":""},
+      "subResource": "scale",
+      "requestKind": {"group":"","version":"","kind":"Namespace"},
+      "requestResource": {"group":"","version":"","resource":""},
+      "requestSubResource": "scale",
+      "name": "my-deployment",
+      "namespace": "my-namespace",
+      "operation": "UPDATE",
+      "object": {"apiVersion":"v1","kind":"Namespace","metadata":{"labels":{"istio-injection":"disabled"},"name":"foo"}},
+      "oldObject": {"apiVersion":"v1","kind":"Namespace","metadata":{"labels":{"istio-injection":"enabled"},"name":"foo"}},
+      "options": {"apiVersion":"meta.k8s.io/v1","kind":"UpdateOptions"},
+      "dryRun": false,
+      "userInfo": {
+            "username": "admin",
+            "uid": "014fbff9a07c",
+            "groups": ["system:authenticated","my-admin-group"],
+            "extra": {
+              "some-key":["some-value1", "some-value2"]
+            }
+      }
+}
+  
