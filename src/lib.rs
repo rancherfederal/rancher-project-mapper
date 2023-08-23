@@ -53,7 +53,6 @@ fn matches(match_type: &str, match_string: &str, namespace: &str) -> bool {
         _ => {}
     }
     return false;
-
 }
 
 fn validate(payload: &[u8]) -> CallResult {
