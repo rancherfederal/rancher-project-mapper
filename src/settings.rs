@@ -3,7 +3,6 @@ use crate::LOG_DRAIN;
 use serde::{Deserialize, Serialize};
 use slog::info;
 
-
 #[derive(Serialize, Deserialize, Default, Debug)]
 pub struct Project {
     pub project_type: String,
@@ -39,7 +38,11 @@ mod tests {
     fn validate_settings() -> Result<(), ()> {
         let cluster_name: String = "foobar".to_string();
 
-        let projects: Vec<Project> = vec![Project{project_type: "exact".into(), project_name: "foobar".into(), project_match: "foobar".into()}];
+        let projects: Vec<Project> = vec![Project {
+            project_type: "exact".into(),
+            project_name: "foobar".into(),
+            project_match: "foobar".into(),
+        }];
 
         let settings = Settings {
             cluster_name: cluster_name.into(),

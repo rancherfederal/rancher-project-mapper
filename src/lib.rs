@@ -4,14 +4,14 @@ use guest::prelude::*;
 use kubewarden_policy_sdk::wapc_guest as guest;
 
 use k8s_openapi::api::core::v1 as apicore;
-use std::collections::BTreeMap;
 use regex::Regex;
+use std::collections::BTreeMap;
 
 extern crate kubewarden_policy_sdk as kubewarden;
 use kubewarden::{logging, protocol_version_guest, request::ValidationRequest, validate_settings};
 
 mod settings;
-use settings::{Settings, Project};
+use settings::{Project, Settings};
 
 use slog::{o, Logger};
 
@@ -29,7 +29,6 @@ pub extern "C" fn wapc_init() {
     register_function("protocol_version", protocol_version_guest);
 }
 
-
 fn matches(match_type: &str, match_string: &str, namespace: &str) -> bool {
     match match_type {
         "regex" => {
@@ -38,20 +37,20 @@ fn matches(match_type: &str, match_string: &str, namespace: &str) -> bool {
             if re.is_match(namespace) {
                 return true;
             }
-        },
+        }
         "prefix" => {
             println!("Prefix Comparison");
             if namespace.starts_with(match_string) {
                 return true;
             }
-        },
+        }
         "exact" => {
             println!("Exact Comparison");
             if match_string == namespace {
                 return true;
             }
-        },
-        _=> {
+        }
+        _ => {
             return false;
         }
     }
@@ -59,36 +58,41 @@ fn matches(match_type: &str, match_string: &str, namespace: &str) -> bool {
 }
 
 fn validate(payload: &[u8]) -> CallResult {
-    let validation_request: ValidationRequest<settings::Settings> = ValidationRequest::new(payload)?;
+    let validation_request: ValidationRequest<settings::Settings> =
+        ValidationRequest::new(payload)?;
     let stgs = validation_request.settings;
 
     match serde_json::from_value::<apicore::Namespace>(validation_request.request.object) {
         // NOTE 1
         Ok(mut namespace) => {
             let namespace_name = namespace.metadata.name.clone().unwrap_or_default();
-                    let metadata = namespace.metadata.clone();
-                    let mut new_annotations = BTreeMap::new();
-                    let mut new_labels = BTreeMap::new();
-                    for (k,v) in metadata.annotations.unwrap_or_default() {
-                        new_annotations.insert(k, v);
-                    }
+            let metadata = namespace.metadata.clone();
+            let mut new_annotations = BTreeMap::new();
+            let mut new_labels = BTreeMap::new();
+            for (k, v) in metadata.annotations.unwrap_or_default() {
+                new_annotations.insert(k, v);
+            }
 
-                    for (k,v) in metadata.labels.unwrap_or_default() {
-                        new_labels.insert(k, v);
-                    }
+            for (k, v) in metadata.labels.unwrap_or_default() {
+                new_labels.insert(k, v);
+            }
 
             for project in stgs.projects.iter() {
-                if matches(project.project_type.as_str(), project.project_match.as_str(), namespace_name.as_str()) {
+                if matches(
+                    project.project_type.as_str(),
+                    project.project_match.as_str(),
+                    namespace_name.as_str(),
+                ) {
                     new_annotations.insert(
                         String::from("field.cattle.io/projectId"),
                         format!("{}:{}", stgs.cluster_name, project.project_name),
                     );
-                    
+
                     new_labels.insert(
                         String::from("field.cattle.io/projectId"),
                         format!("{}", project.project_name),
                     );
-                    
+
                     namespace.metadata.annotations = Some(new_annotations);
                     namespace.metadata.labels = Some(new_labels);
 
@@ -97,8 +101,8 @@ fn validate(payload: &[u8]) -> CallResult {
                 }
                 break;
             }
-            
-            return kubewarden::accept_request()
+
+            return kubewarden::accept_request();
         }
         Err(_) => {
             // We were forwarded a request we cannot unmarshal or
@@ -118,7 +122,11 @@ mod tests {
     fn mutate_request_prefix_match() -> Result<(), ()> {
         let cluster_name: String = "foobar".to_string();
 
-        let projects: Vec<Project> = vec![Project{project_type: "prefix".into(), project_name: "foobar".into(), project_match: "foo".into()}];
+        let projects: Vec<Project> = vec![Project {
+            project_type: "prefix".into(),
+            project_name: "foobar".into(),
+            project_match: "foo".into(),
+        }];
 
         let request_file = "test_data/namespace-foobar.json";
         let tc = Testcase {
@@ -144,7 +152,11 @@ mod tests {
     fn mutate_request_regex_match() -> Result<(), ()> {
         let cluster_name: String = "foobar".to_string();
 
-        let projects: Vec<Project> = vec![Project{project_type: "regex".into(), project_name: "foobar".into(), project_match: "^f[o]+".into()}];
+        let projects: Vec<Project> = vec![Project {
+            project_type: "regex".into(),
+            project_name: "foobar".into(),
+            project_match: "^f[o]+".into(),
+        }];
 
         let request_file = "test_data/namespace-foobar.json";
         let tc = Testcase {
@@ -170,7 +182,11 @@ mod tests {
     fn no_match_no_mutate() -> Result<(), ()> {
         let cluster_name: String = "foobar".to_string();
 
-        let projects: Vec<Project> = vec![Project{project_type: "exact".into(), project_name: "foobar".into(), project_match: "feeber".into()}];
+        let projects: Vec<Project> = vec![Project {
+            project_type: "exact".into(),
+            project_name: "foobar".into(),
+            project_match: "feeber".into(),
+        }];
 
         let request_file = "test_data/namespace-foobar.json";
         let tc = Testcase {
@@ -191,5 +207,4 @@ mod tests {
 
         Ok(())
     }
-
 }
