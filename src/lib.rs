@@ -98,7 +98,6 @@ fn validate(payload: &[u8]) -> CallResult {
                     let mutated_object = serde_json::to_value(namespace)?;
                     return kubewarden::mutate_request(mutated_object);
                 }
-                break;
             }
 
             return kubewarden::accept_request();
