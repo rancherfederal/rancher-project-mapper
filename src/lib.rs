@@ -33,7 +33,7 @@ fn matches(match_type: &str, match_string: &str, namespace: &str) -> bool {
     match match_type {
         "regex" => {
             println!("Regex Comparison");
-            let re = Regex::new(format!(r#"{}"#, match_string).as_str()).unwrap();
+            let re = Regex::new(match_string.to_string().as_str()).unwrap();
             if re.is_match(namespace) {
                 return true;
             }
@@ -53,6 +53,7 @@ fn matches(match_type: &str, match_string: &str, namespace: &str) -> bool {
         _ => {}
     }
     return false;
+
 }
 
 fn validate(payload: &[u8]) -> CallResult {
@@ -88,7 +89,7 @@ fn validate(payload: &[u8]) -> CallResult {
 
                     new_labels.insert(
                         String::from("field.cattle.io/projectId"),
-                        format!("{}", project.project_name),
+                        project.project_name.to_string(),
                     );
 
                     namespace.metadata.annotations = Some(new_annotations);
