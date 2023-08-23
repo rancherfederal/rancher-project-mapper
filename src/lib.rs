@@ -11,7 +11,7 @@ extern crate kubewarden_policy_sdk as kubewarden;
 use kubewarden::{logging, protocol_version_guest, request::ValidationRequest, validate_settings};
 
 mod settings;
-use settings::{Project, Settings};
+use settings::Settings;
 
 use slog::{o, Logger};
 
@@ -50,9 +50,7 @@ fn matches(match_type: &str, match_string: &str, namespace: &str) -> bool {
                 return true;
             }
         }
-        _ => {
-            return false;
-        }
+        _ => {}
     }
     return false;
 }
@@ -115,6 +113,7 @@ fn validate(payload: &[u8]) -> CallResult {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use settings::Project;
 
     use kubewarden_policy_sdk::test::Testcase;
 
