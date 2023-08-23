@@ -34,27 +34,15 @@ fn matches(match_type: &str, match_string: &str, namespace: &str) -> bool {
         "regex" => {
             println!("Regex Comparison");
             let re = Regex::new(match_string.to_string().as_str()).unwrap();
-            if re.is_match(namespace) {
-                return true;
-            } else {
-                return false;
-            }
+            return re.is_match(namespace);
         }
         "prefix" => {
             println!("Prefix Comparison");
-            if namespace.starts_with(match_string) {
-                return true;
-            } else {
-                return false;
-            }
+            return namespace.starts_with(match_string);
         }
         "exact" => {
             println!("Exact Comparison");
-            if match_string == namespace {
-                return true;
-            } else {
-                return false;
-            }
+            return match_string == namespace;
         }
         _ => {
             return false;
