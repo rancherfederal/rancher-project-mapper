@@ -2,7 +2,7 @@
 apiVersion: policies.kubewarden.io/v1
 kind: PolicyServer
 metadata:
-  name: kubewarden-namespace-mapper-policyserver
+  name: namespace-mapper-ps
 spec:
   env:
     - name: KUBEWARDEN_LOG_LEVEL

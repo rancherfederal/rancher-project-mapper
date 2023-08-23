@@ -12,7 +12,7 @@ spec:
   module: ghcr.io/kubewarden/policies/safe-annotations:v0.2.6
   mutating: false
   {{- if .Values.policyServer.create }}
-  policyServer: kubewarden-namespace-mapper-policyserver
+  policyServer: namespace-mapper-ps
   {{- else }}
   policyServer: {{ .Values.policyServer.name | default "default" }}
   {{- end }}
