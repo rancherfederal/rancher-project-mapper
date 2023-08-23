@@ -33,20 +33,18 @@ fn matches(match_type: &str, match_string: &str, namespace: &str) -> bool {
     match match_type {
         "regex" => {
             println!("Regex Comparison");
-            let re = Regex::new(match_string.to_string().as_str()).unwrap();
-            return re.is_match(namespace);
+            let re: Regex = Regex::new(match_string.to_string().as_str()).unwrap();
+            re.is_match(namespace)
         }
         "prefix" => {
             println!("Prefix Comparison");
-            return namespace.starts_with(match_string);
+            namespace.starts_with(match_string)
         }
         "exact" => {
             println!("Exact Comparison");
-            return match_string == namespace;
+            match_string == namespace
         }
-        _ => {
-            return false;
-        }
+        _ => false,
     }
 }
 
