@@ -1,9 +1,9 @@
 rules:
 - apiGroups: [""]
   apiVersions: ["v1"]
-  resources: ["pods", "namespaces"]
+  resources: ["namespaces"]
   operations: ["CREATE", "UPDATE"]
-mutating: false
+mutating: true
 contextAware: false
 executionMode: kubewarden-wapc
 annotations:

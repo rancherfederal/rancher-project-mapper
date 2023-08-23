@@ -9,7 +9,6 @@ metadata:
 spec:
   module: "registry://{{ .Values.policyImage.registry }}:{{ .Values.policyImage.tag}}"
   mode: {{ .Values.policy.mode }}
-  module: ghcr.io/kubewarden/policies/safe-annotations:v0.2.6
   mutating: false
   {{- if .Values.policyServer.create }}
   policyServer: namespace-mapper-ps

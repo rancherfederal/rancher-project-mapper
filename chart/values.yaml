@@ -15,5 +15,6 @@ policyServer:
 settings:
   clusterName: foobar
   projects:
-  - project_name: boop
-    project_type: boop
+  - project_type: exact
+    project_name: boop
+    project_match: boop
