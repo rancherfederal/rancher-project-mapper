@@ -19,7 +19,7 @@ jobs:
         name: Build and annotate policy
         uses: kubewarden/github-actions/policy-build-rust@v1
         with:
-          input-wasm: target/wasm32-wasi/release/kubewarden_istio_policy.wasm
+          input-wasm: target/wasm32-wasi/release/kubewarden_namespace_mapper_policy.wasm
       # -
       #   name: Run e2e tests
       #   run: |
@@ -29,6 +29,6 @@ jobs:
         uses: kubewarden/github-actions/policy-release@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          oci-target: ghcr.io/atoy3731/policies/istio
+          oci-target: ghcr.io/atoy3731/policies/namespace-mapper
           workflow-pat: ${{ secrets.WORKFLOW_PAT }}
           annotated-wasm: annotated-policy.wasm

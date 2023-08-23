@@ -9,8 +9,8 @@
       "name": "foobar",
       "namespace": "foobar",
       "operation": "UPDATE",
-      "object": {"apiVersion":"v1","kind":"Namespace","metadata":{"labels":{"istio-injection":"disabled"},"name":"foobar"}},
-      "oldObject": {"apiVersion":"v1","kind":"Namespace","metadata":{"labels":{"istio-injection":"enabled"},"name":"foobar"}},
+      "object": {"apiVersion":"v1","kind":"Namespace","metadata":{"labels":{},"name":"foobar"}},
+      "oldObject": {"apiVersion":"v1","kind":"Namespace","metadata":{"labels":{},"name":"foobar"}},
       "options": {"apiVersion":"meta.k8s.io/v1","kind":"UpdateOptions"},
       "dryRun": false,
       "userInfo": {
