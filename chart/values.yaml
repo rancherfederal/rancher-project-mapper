@@ -1,0 +1,19 @@
+policyImage:
+  registry: ghcr.io/atoy3731/policies/namespace-mapper
+  tag: latest
+
+policy:
+  mode: protect
+
+policyServer:
+  create: true
+  replicas: 3
+
+  # If create is false, specify existing policyServer name.
+  name: default
+
+settings:
+  clusterName: foobar
+  projects:
+  - project_name: boop
+    project_type: boop

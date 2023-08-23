@@ -1,0 +1,35 @@
+# Policy to enforce Istio Injection
+# Namespaces require "istio-injection=enabled" label
+# Pods require no "sidecar.istio.io/inject=false" label
+
+apiVersion: policies.kubewarden.io/v1
+kind: ClusterAdmissionPolicy
+metadata:
+  name: kubewarden-namespace-mapper-policy
+spec:
+  module: "registry://{{ .Values.policyImage.registry }}:{{ .Values.policyImage.tag}}"
+  mode: {{ .Values.policy.mode }}
+  module: ghcr.io/kubewarden/policies/safe-annotations:v0.2.6
+  mutating: false
+  {{- if .Values.policyServer.create }}
+  policyServer: kubewarden-namespace-mapper-policyserver
+  {{- else }}
+  policyServer: {{ .Values.policyServer.name | default "default" }}
+  {{- end }}
+  settings:
+    cluster_name: {{ .Values.settings.clusterName }}
+    {{- with .Values.settings.projects }}
+    projects:
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  rules:
+    - apiGroups:
+        - ""
+      apiVersions:
+        - v1
+      resources:
+        - namespaces
+      operations:
+        - CREATE
+        - UPDATE
+  mutating: true

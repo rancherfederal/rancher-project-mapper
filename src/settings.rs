@@ -2,13 +2,13 @@ use crate::LOG_DRAIN;
 
 use serde::{Deserialize, Serialize};
 use slog::info;
-use std::collections::HashMap;
 
 
 #[derive(Serialize, Deserialize, Default, Debug)]
 pub struct Project {
     pub project_type: String,
     pub project_name: String,
+    pub project_match: String,
 }
 
 // Describe the settings your policy expects when
@@ -37,12 +37,12 @@ mod tests {
 
     #[test]
     fn validate_settings() -> Result<(), ()> {
-        let cluster_name = vec!["foo".to_string()];
+        let cluster_name: String = "foobar".to_string();
 
-        let mut projects = vec![Project{project_type: "exact".into(), project_name: "foobar".into()}];
+        let projects: Vec<Project> = vec![Project{project_type: "exact".into(), project_name: "foobar".into(), project_match: "foobar".into()}];
 
         let settings = Settings {
-            cluster_name: "clusterName".into(),
+            cluster_name: cluster_name.into(),
             projects: projects,
         };
 

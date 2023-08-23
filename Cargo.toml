@@ -1,5 +1,5 @@
 [package]
-name = "kubewarden-istio-policy"
+name = "kubewarden-namespace-mapper"
 version = "0.1.0"
 authors = ["Adam Toy"]
 edition = "2018"

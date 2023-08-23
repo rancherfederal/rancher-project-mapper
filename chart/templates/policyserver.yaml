@@ -1,0 +1,13 @@
+{{- if .Values.policyServer.create }}
+apiVersion: policies.kubewarden.io/v1
+kind: PolicyServer
+metadata:
+  name: kubewarden-namespace-mapper-policyserver
+spec:
+  env:
+    - name: KUBEWARDEN_LOG_LEVEL
+      value: info
+  image: ghcr.io/kubewarden/policy-server:v1.5.3
+  replicas: {{ .Values.policyServer.replicas }}
+  serviceAccountName: policy-server
+{{- end }}
