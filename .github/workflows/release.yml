@@ -19,7 +19,7 @@ jobs:
         name: Build and annotate policy
         uses: kubewarden/github-actions/policy-build-rust@v1
         with:
-          input-wasm: target/wasm32-wasi/release/kubewarden_namespace_mapper_policy.wasm
+          input-wasm: target/wasm32-wasi/release/kubewarden_namespace_mapper.wasm
       # -
       #   name: Run e2e tests
       #   run: |
