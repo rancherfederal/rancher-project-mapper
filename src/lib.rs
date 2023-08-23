@@ -36,23 +36,30 @@ fn matches(match_type: &str, match_string: &str, namespace: &str) -> bool {
             let re = Regex::new(match_string.to_string().as_str()).unwrap();
             if re.is_match(namespace) {
                 return true;
+            } else {
+                return false;
             }
         }
         "prefix" => {
             println!("Prefix Comparison");
             if namespace.starts_with(match_string) {
                 return true;
+            } else {
+                return false;
             }
         }
         "exact" => {
             println!("Exact Comparison");
             if match_string == namespace {
                 return true;
+            } else {
+                return false;
             }
         }
-        _ => {}
+        _ => {
+            return false;
+        }
     }
-    return false;
 }
 
 fn validate(payload: &[u8]) -> CallResult {
