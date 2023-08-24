@@ -1,6 +1,4 @@
-# Policy to enforce Istio Injection
-# Namespaces require "istio-injection=enabled" label
-# Pods require no "sidecar.istio.io/inject=false" label
+# Policy to map namespaces to Rancher projects
 
 apiVersion: policies.kubewarden.io/v1
 kind: ClusterAdmissionPolicy
