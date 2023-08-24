@@ -7,7 +7,7 @@ kind: ClusterAdmissionPolicy
 metadata:
   name: kubewarden-namespace-mapper-policy
 spec:
-  module: "registry://{{ .Values.policyImage.registry }}:{{ .Values.policyImage.tag}}"
+  module: "{{ .Values.policyImage.registry }}:{{ .Values.policyImage.tag}}"
   mode: {{ .Values.policy.mode }}
   mutating: false
   {{- if .Values.policyServer.create }}

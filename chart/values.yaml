@@ -1,5 +1,5 @@
 policyImage:
-  registry: ghcr.io/atoy3731/policies/namespace-mapper
+  registry: ghcr.io/atoy3731/policies/nmp
   tag: latest
 
 policy:
@@ -8,6 +8,7 @@ policy:
 policyServer:
   create: true
   replicas: 3
+  imagePullSecret: "secret-ghcr-docker"
 
   # If create is false, specify existing policyServer name.
   name: default
