@@ -4,7 +4,7 @@ metadata:
   name: rancher-project-mapper
   namespace: fleet-default
 spec:
-  repo: ssh://git@github.com:atoy3731/kubewarden-namespace-mapper.git
+  repo: git@github.com:atoy3731/kubewarden-namespace-mapper.git
   branch: main
   clientSecretName: rancher-project-mapper
   targets:
