@@ -1,0 +1,16 @@
+kind: GitRepo
+apiVersion: fleet.cattle.io/v1alpha1
+metadata:
+  name: rancher-project-mapper
+  namespace: fleet-default
+spec:
+  repo: ssh://git@github.com:atoy3731/kubewarden-namespace-mapper.git
+  branch: main
+  clientSecretName: rancher-project-mapper
+  targets:
+  - name: secured
+    clusterSelector:
+      matchLabels:
+        cluster: secured
+  paths:
+  - ./fleet/helm

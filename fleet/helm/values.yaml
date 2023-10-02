@@ -1,0 +1,5 @@
+  clusterName: foobar
+  projects:
+  - project_type: exact
+    project_name: boop
+    namespace_match: boop

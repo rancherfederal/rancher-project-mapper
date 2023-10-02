@@ -1,0 +1,15 @@
+defaultNamespace: kubewarden
+
+labels:
+  app: rancher-project-mapper
+
+helm:
+  chart: ../../chart
+  releaseName: rancher-project-mapper
+  valueFiles:
+  - values.yaml
+
+dependsOn:
+  - selector:
+      matchLabels:
+        app: kubewarden-controller
