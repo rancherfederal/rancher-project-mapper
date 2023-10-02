@@ -4,13 +4,9 @@ metadata:
   name: rancher-project-mapper
   namespace: fleet-default
 spec:
-  repo: git@github.com:atoy3731/kubewarden-namespace-mapper.git
+  repo: https://github.com/rancherfederal/rancher-project-mapper.git
   branch: main
-  clientSecretName: rancher-project-mapper
-  targets:
-  - name: secured
-    clusterSelector:
-      matchLabels:
-        cluster: secured
+targets:
+  - clusterSelector: {} # Deploy to all clusters
   paths:
   - ./fleet/helm
