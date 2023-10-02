@@ -1,5 +1,5 @@
 policyImage:
-  registry: ghcr.io/atoy3731/policies/nmp
+  registry: ghcr.io/atoy3731/policies/namespace-mapper
   tag: latest
 
 policy:
