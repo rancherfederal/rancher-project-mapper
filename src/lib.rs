@@ -70,7 +70,7 @@ fn validate(payload: &[u8]) -> CallResult {
 
             for project in stgs.projects.iter() {
                 if matches(
-                    project.project_type.as_str(),
+                    project.match_type.as_str(),
                     project.namespace_match.as_str(),
                     namespace_name.as_str(),
                 ) {
@@ -114,7 +114,7 @@ mod tests {
         let cluster_name: String = "foobar".to_string();
 
         let projects: Vec<Project> = vec![Project {
-            project_type: "prefix".into(),
+            match_type: "prefix".into(),
             project_name: "foobar".into(),
             namespace_match: "foo".into(),
         }];
@@ -144,7 +144,7 @@ mod tests {
         let cluster_name: String = "foobar".to_string();
 
         let projects: Vec<Project> = vec![Project {
-            project_type: "regex".into(),
+            match_type: "regex".into(),
             project_name: "foobar".into(),
             namespace_match: "^f[o]+".into(),
         }];
@@ -174,7 +174,7 @@ mod tests {
         let cluster_name: String = "foobar".to_string();
 
         let projects: Vec<Project> = vec![Project {
-            project_type: "exact".into(),
+            match_type: "exact".into(),
             project_name: "foobar".into(),
             namespace_match: "feeber".into(),
         }];

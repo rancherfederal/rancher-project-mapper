@@ -5,7 +5,7 @@ use slog::info;
 
 #[derive(Serialize, Deserialize, Default, Debug)]
 pub struct Project {
-    pub project_type: String,
+    pub match_type: String,
     pub project_name: String,
     pub namespace_match: String,
 }
@@ -39,7 +39,7 @@ mod tests {
         let cluster_name: String = "foobar".to_string();
 
         let projects: Vec<Project> = vec![Project {
-            project_type: "exact".into(),
+            match_type: "exact".into(),
             project_name: "foobar".into(),
             namespace_match: "foobar".into(),
         }];
