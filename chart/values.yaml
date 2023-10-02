@@ -18,4 +18,4 @@ settings:
   projects:
   - project_type: exact
     project_name: boop
-    project_match: boop
+    namespace_match: boop
