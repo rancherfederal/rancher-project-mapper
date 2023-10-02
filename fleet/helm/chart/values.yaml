@@ -1,0 +1,21 @@
+policyImage:
+  registry: ghcr.io/atoy3731/policies/nmp
+  tag: latest
+
+policy:
+  mode: protect
+
+policyServer:
+  create: true
+  replicas: 3
+  imagePullSecret: "secret-ghcr-docker"
+
+  # If create is false, specify existing policyServer name.
+  name: default
+
+settings:
+  clusterName: foobar
+  projects:
+  - match_type: exact
+    project_name: boop
+    namespace_match: boop

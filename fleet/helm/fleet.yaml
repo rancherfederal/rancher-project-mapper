@@ -4,7 +4,7 @@ labels:
   app: rancher-project-mapper
 
 helm:
-  chart: ../../chart/
+  chart: ./chart
   valueFiles:
   - values.yaml
 

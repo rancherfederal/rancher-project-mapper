@@ -1,0 +1,31 @@
+# Policy to map namespaces to Rancher projects
+
+apiVersion: policies.kubewarden.io/v1
+kind: ClusterAdmissionPolicy
+metadata:
+  name: kubewarden-namespace-mapper-policy
+spec:
+  module: "{{ .Values.policyImage.registry }}:{{ .Values.policyImage.tag}}"
+  mode: {{ .Values.policy.mode }}
+  mutating: true
+  {{- if .Values.policyServer.create }}
+  policyServer: namespace-mapper-ps
+  {{- else }}
+  policyServer: {{ .Values.policyServer.name | default "default" }}
+  {{- end }}
+  settings:
+    cluster_name: {{ .Values.settings.clusterName }}
+    {{- with .Values.settings.projects }}
+    projects:
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  rules:
+    - apiGroups:
+        - ""
+      apiVersions:
+        - v1
+      resources:
+        - namespaces
+      operations:
+        - CREATE
+        - UPDATE
