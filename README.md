@@ -1,20 +1,61 @@
-# kubewarden-istio-policy
-
-[![Release policy](https://github.com/atoy3731/kubewarden-istio-policy/actions/workflows/release.yml/badge.svg)](https://github.com/atoy3731/kubewarden-istio-policy/actions/workflows/release.yml)
+# Rancher Project Mapper Policy
 
 ## Introduction
 
-This repository contains the source for a Kubewarden policy to enforce Istio injection across your Kubernetes cluster.
+This repository contains the source for a Kubewarden policy to automatically annotation/label namespaces to join preexisting Rancher projects.
 
-It comes with the ability to exclude both namespaces and pods (by label) for flexibility. Optional settings are:
+This is useful to ensure namespaces are scoped to specifically predefined Rancher RBAC controls.
+
+Settings for the policy are as follows (matches are top-to-bottom ordered in the 'projects' list):
 ```json
 {
-  "excluded_namespaces": [ "istio-system", "kubewarden" ],
-  "excluded_pod_labels" {
-    "istioException": "enabled"
-  }
+  "cluster": "c-m-abc12345",
+  "projects": [
+    {
+      "match_type": "exact",
+      "project_name": "p-abc12",
+      "namespace_match": "foobar"
+    },
+    {
+      "match_type": "prefix",
+      "project_name": "p-def34",
+      "namespace_match": "dev-"
+    },
+    {
+      "match_type": "regex",
+      "project_name": "p-ghi56",
+      "namespace_match": "dev-"
+    }, 
+  ]
 }
 ```
+
+## Installation
+
+### Prerequisites
+
+1. Install [Cert Manager](https://cert-manager.io/docs/installation/) onto your cluster.
+
+2. Install [Kubewarden](https://docs.kubewarden.io/quick-start) onto your cluster.
+
+### Installation via Helm
+
+1. Check outh the [values.yaml](./chart/values.yaml) to see configurable values, especially around the projects.
+
+2. Create a `/tmp/values.yaml` locally and override with your specific project structure (and any other customizations):
+  ```yaml
+  settings:
+    clusterName: c-m-abcdef12 // Name of the cluster within Rancher ('.status.clusterName' in the cluster resource)
+    projects:
+    - match_type: exact // Can be 'exact', 'regex', or 'prefix'
+      project_name: p-abc12 // Name of the project in Rancher to map to ('name' in the project resource)
+      namespace_match: foobar // Namespace match string to compare to downstream namespaces upon creation
+  ```
+
+3. Install the Kubewarden policy via helm:
+  ```bash
+  helm install -n kubewarden -f /tmp/values.yaml rancher-project-mapper-policy/chart/
+  ``` 
 
 ## Code organization
 

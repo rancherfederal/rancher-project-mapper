@@ -1,5 +1,5 @@
 policyImage:
-  registry: ghcr.io/atoy3731/policies/namespace-mapper
+  registry: ghcr.io/rancherfederal/policies/rancher-project-mapper
   tag: latest
 
 policy:
