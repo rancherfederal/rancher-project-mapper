@@ -1,3 +1,4 @@
+settings:
   clusterName: c-m-69ts9q8p
   projects:
   - match_type: regex
