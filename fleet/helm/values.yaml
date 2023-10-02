@@ -3,7 +3,7 @@ settings:
   projects:
   - match_type: regex
     project_name: p-n9m4q
-    namespace_match: "*"
+    namespace_match: ".*"
 
 policyServer:
   replicas: 1
