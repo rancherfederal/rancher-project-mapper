@@ -8,7 +8,10 @@ policy:
 policyServer:
   create: true
   replicas: 3
-  imagePullSecret: "secret-ghcr-docker"
+
+  # If storing your policy in a private OCI registry, you need to create the secret first in the 'kubewarden' namespace.
+  # See here for more info: https://docs.kubewarden.io/operator-manual/policy-servers/private-registry
+  # imagePullSecret: "" 
 
   # If create is false, specify existing policyServer name.
   name: default

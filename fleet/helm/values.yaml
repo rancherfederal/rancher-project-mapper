@@ -12,4 +12,4 @@ settings:
     namespace_match: ".*"
 
 policyServer:
-  replicas: 1
+  replicas: 3

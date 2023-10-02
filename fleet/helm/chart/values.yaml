@@ -8,7 +8,6 @@ policy:
 policyServer:
   create: true
   replicas: 3
-  imagePullSecret: "secret-ghcr-docker"
 
   # If create is false, specify existing policyServer name.
   name: default
