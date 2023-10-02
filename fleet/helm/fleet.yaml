@@ -5,7 +5,7 @@ labels:
 
 helm:
   chart: ./chart
-  valueFiles:
+  valuesFiles:
   - values.yaml
 
 dependsOn:
