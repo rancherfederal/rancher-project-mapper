@@ -78,4 +78,4 @@ jobs:
 
     uses: kubewarden/github-actions/.github/workflows/reusable-release-policy-rust.yml@v3.1.9
     with:
-      oci-target: ghcr.io/${{ github.repository_owner }}/policies/nmp
+      oci-target: ghcr.io/${{ github.repository_owner }}/policies/namespace-mapper
