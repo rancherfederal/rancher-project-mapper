@@ -33,8 +33,12 @@ fn matches(match_type: &str, match_string: &str, namespace: &str) -> bool {
     match match_type {
         "regex" => {
             println!("Regex Comparison");
-            let re: Regex = Regex::new(match_string.to_string().as_str()).unwrap();
-            re.is_match(namespace)
+            if match_string == "*" {
+                true
+            } else {
+                let re: Regex = Regex::new(match_string.to_string().as_str()).unwrap();
+                re.is_match(namespace)
+            }
         }
         "prefix" => {
             println!("Prefix Comparison");
@@ -117,6 +121,36 @@ mod tests {
             match_type: "prefix".into(),
             project_name: "foobar".into(),
             namespace_match: "foo".into(),
+        }];
+
+        let request_file = "test_data/namespace-foobar.json";
+        let tc = Testcase {
+            name: String::from("Namespace Annotation Add"),
+            fixture_file: String::from(request_file),
+            expected_validation_result: true,
+            settings: Settings {
+                cluster_name: cluster_name,
+                projects: projects,
+            },
+        };
+
+        let res = tc.eval(validate).unwrap();
+        assert!(
+            res.mutated_object.is_some(),
+            "Expected accepted object to be mutated",
+        );
+
+        Ok(())
+    }
+
+    #[test]
+    fn mutate_request_regex_all_match() -> Result<(), ()> {
+        let cluster_name: String = "foobar".to_string();
+
+        let projects: Vec<Project> = vec![Project {
+            match_type: "regex".into(),
+            project_name: "foobar".into(),
+            namespace_match: "*".into(),
         }];
 
         let request_file = "test_data/namespace-foobar.json";
