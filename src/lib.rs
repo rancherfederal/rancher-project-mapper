@@ -31,6 +31,10 @@ pub extern "C" fn wapc_init() {
 
 fn matches(match_type: &str, match_string: &str, namespace: &str) -> bool {
     match match_type {
+        "all" => {
+            println!("Match All");
+            true
+        }
         "regex" => {
             println!("Regex Comparison");
             if match_string == "*" {
