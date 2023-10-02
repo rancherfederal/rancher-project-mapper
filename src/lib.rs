@@ -71,7 +71,7 @@ fn validate(payload: &[u8]) -> CallResult {
             for project in stgs.projects.iter() {
                 if matches(
                     project.project_type.as_str(),
-                    project.project_match.as_str(),
+                    project.namespace_match.as_str(),
                     namespace_name.as_str(),
                 ) {
                     new_annotations.insert(
@@ -116,7 +116,7 @@ mod tests {
         let projects: Vec<Project> = vec![Project {
             project_type: "prefix".into(),
             project_name: "foobar".into(),
-            project_match: "foo".into(),
+            namespace_match: "foo".into(),
         }];
 
         let request_file = "test_data/namespace-foobar.json";
@@ -146,7 +146,7 @@ mod tests {
         let projects: Vec<Project> = vec![Project {
             project_type: "regex".into(),
             project_name: "foobar".into(),
-            project_match: "^f[o]+".into(),
+            namespace_match: "^f[o]+".into(),
         }];
 
         let request_file = "test_data/namespace-foobar.json";
@@ -176,7 +176,7 @@ mod tests {
         let projects: Vec<Project> = vec![Project {
             project_type: "exact".into(),
             project_name: "foobar".into(),
-            project_match: "feeber".into(),
+            namespace_match: "feeber".into(),
         }];
 
         let request_file = "test_data/namespace-foobar.json";

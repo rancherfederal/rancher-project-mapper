@@ -7,7 +7,7 @@ use slog::info;
 pub struct Project {
     pub project_type: String,
     pub project_name: String,
-    pub project_match: String,
+    pub namespace_match: String,
 }
 
 // Describe the settings your policy expects when
@@ -41,7 +41,7 @@ mod tests {
         let projects: Vec<Project> = vec![Project {
             project_type: "exact".into(),
             project_name: "foobar".into(),
-            project_match: "foobar".into(),
+            namespace_match: "foobar".into(),
         }];
 
         let settings = Settings {
