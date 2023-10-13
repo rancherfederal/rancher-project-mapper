@@ -96,11 +96,11 @@ fn validate(payload: &[u8]) -> CallResult {
                     namespace.metadata.labels = Some(new_labels);
 
                     let mutated_object = serde_json::to_value(namespace)?;
-                    return kubewarden::mutate_request(mutated_object);
+                    kubewarden::mutate_request(mutated_object)
                 }
             }
 
-            kubewarden::accept_request();
+            kubewarden::accept_request()
         }
         Err(_) => {
             // We were forwarded a request we cannot unmarshal or
