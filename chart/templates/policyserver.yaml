@@ -9,7 +9,6 @@ spec:
       value: info
   image: ghcr.io/kubewarden/policy-server:v1.5.3
   replicas: {{ .Values.policyServer.replicas }}
-  serviceAccountName: policy-server
   {{- if .Values.policyServer.imagePullSecret }}
   imagePullSecret: {{ .Values.policyServer.imagePullSecret }}
   {{- end }}
