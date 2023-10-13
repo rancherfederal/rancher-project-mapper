@@ -100,7 +100,7 @@ fn validate(payload: &[u8]) -> CallResult {
                 }
             }
 
-            kubewarden::accept_request();
+            kubewarden::accept_request()
         }
         Err(_) => {
             // We were forwarded a request we cannot unmarshal or
