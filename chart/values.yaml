@@ -8,6 +8,7 @@ policy:
 policyServer:
   create: true
   replicas: 3
+  imageTag: v1.5.3
 
   # If storing your policy in a private OCI registry, you need to create the secret first in the 'kubewarden' namespace.
   # See here for more info: https://docs.kubewarden.io/operator-manual/policy-servers/private-registry
