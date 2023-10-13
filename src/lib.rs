@@ -96,7 +96,7 @@ fn validate(payload: &[u8]) -> CallResult {
                     namespace.metadata.labels = Some(new_labels);
 
                     let mutated_object = serde_json::to_value(namespace)?;
-                    kubewarden::mutate_request(mutated_object);
+                    return kubewarden::mutate_request(mutated_object);
                 }
             }
 
